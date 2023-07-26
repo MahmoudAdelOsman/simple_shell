@@ -87,7 +87,7 @@ l_list *get_prefix(l_list *node, char *prefix, char c)
 
 	while (node)
 	{
-		s = haystack_chack(node->str, prefix);
+		s = haystack_check(node->str, prefix);
 		if (s && ((c == -1) || (*s == c)))
 			return (node);
 		node = node->nxt;

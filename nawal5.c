@@ -100,10 +100,10 @@ ssize_t get_line(cmd_model *func_data)
 	{
 		n = m;
 		a = c + m;
-		chack_chaining_continue(func_data, c, &n, m, length);
+		check_chaining_continue(func_data, c, &n, m, length);
 		while (n < length)
 		{
-			if (chack_chaining_delimeter(func_data, c, &n))
+			if (check_chaining_delimeter(func_data, c, &n))
 				break;
 			n++;
 		}

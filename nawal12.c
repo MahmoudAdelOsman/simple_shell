@@ -1,4 +1,4 @@
-#include "simple_shell.h"
+#include "s_shell.h"
 
 /**
  * print_decimal - prints a decimal number - base 10
