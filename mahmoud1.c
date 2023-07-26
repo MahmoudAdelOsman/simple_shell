@@ -33,7 +33,7 @@ int main(int margc, char **margv)
 			}
 			return (EXIT_FAILURE);
 		}
-		func_dara->f_read = a;
+		func_data->f_read = a;
 	}
 	ll_env(func_data);
 	read_history_row(func_data);

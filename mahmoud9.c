@@ -2,7 +2,7 @@
 
 /**
  * get_str_environ - returns a string from an environment
- * @func_data: Structure containing a data model
+ * @func_data: structure containing a data model
  * Return: 0 Always
  */
 
@@ -17,10 +17,10 @@ char **get_str_environ(cmd_model *func_data)
 }
 
 /**
- * remove_env - remove an environment
+ * remove_env - removes an environment
  * @func_data: structure containing a data model
  * @ss: string of environment property
- * Return: 1 if success
+ * Return: 1 on Success
  */
 
 int remove_env(cmd_model *func_data, char *ss)
@@ -52,7 +52,7 @@ int remove_env(cmd_model *func_data, char *ss)
  * @func_data: structure containing a data model
  * @ss: string of an environment property
  * @ss_value: string of environment variable value
- * Return: Always 0
+ * Return: 0 Always
  */
 
 int add_new_env(cmd_model *func_data, char *ss, char *ss_value)
@@ -73,7 +73,7 @@ int add_new_env(cmd_model *func_data, char *ss, char *ss_value)
 	while (y)
 	{
 		z = haystack_check(y->str, ss);
-		if (z && *z == "=")
+		if (z && *z == '=')
 		{
 			free(y->str);
 			y->str = x;

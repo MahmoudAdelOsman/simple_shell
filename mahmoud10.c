@@ -65,7 +65,7 @@ l_list *add_node_at_start(l_list **head, const char *str, int n)
 	new_head->number = n;
 	if (str)
 	{
-		new_head->nxt = string_duplicate(str);
+		new_head->str = string_duplicate(str);
 		if (!new_head->str)
 		{
 			free(new_head);

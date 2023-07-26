@@ -10,7 +10,7 @@
 
 int check_chaining_delimeter(cmd_model *func_data, char *c, size_t *p)
 {
-	size_t a = *p;
+	size_t x = *p;
 
 	if (c[x] == '|' && c[x + 1] == '|')
 	{
@@ -36,26 +36,26 @@ int check_chaining_delimeter(cmd_model *func_data, char *c, size_t *p)
 }
 
 /**
- * check_chaining_continue - check chaining continuaty
- * @func_data: Structure containing a data model
- * @c: Character buffer
- * @p: Pointer to character
- * @length: length of character buffer
+ * check_chaining_continue - checks chaining conytinuaty
+ * @func_data: structure containing a data model
+ * @c: character buffer
+ * @p: pointer to character
  * @n: starting position
- * Return: Void
+ * @length: length of c
+ * Return: void
  */
 
-void check_chaining_continue(cmd_model *func_data, char *c, size_t n,
-		size_t *p, size_t length)
+void check_chaining_continue(cmd_model *func_data, char *c, size_t *p,
+		size_t n, size_t length)
 {
-	size_t y = *p;
+	size_t a = *p;
 
 	if (func_data->c_mode == AND_MODE_COM)
 	{
 		if (func_data->fb)
 		{
 			c[n] = 0;
-			y = length;
+			a = length;
 		}
 	}
 	if (func_data->c_mode == OR_MODE_COM)
@@ -63,10 +63,10 @@ void check_chaining_continue(cmd_model *func_data, char *c, size_t n,
 		if (!func_data->fb)
 		{
 			c[n] = 0;
-			y = length;
+			a = length;
 		}
 	}
-	*p = y;
+	*p = a;
 }
 
 /**
@@ -87,7 +87,7 @@ int change_c_alias(cmd_model *func_data)
 		if (!x)
 			return (0);
 		free(func_data->arg_v[0]);
-		a = c_strche(x->str, '=');
+		a = c_strchr(x->str, '=');
 		if (!a)
 			return (0);
 		a = string_duplicate(a + 1);
@@ -139,11 +139,11 @@ int change_c_vars(cmd_model *func_data)
 					string_duplicate(num_to_str(getpid(), 10, 0)));
 			continue;
 		}
-		x = get_prefix(func_Data->env_ll, &func_data->arg_v[v][1], '=');
+		x = get_prefix(func_data->env_ll, &func_data->arg_v[v][1], '=');
 		if (x)
 		{
 			change_str(&(func_data->arg_v[v]),
-					string_duplicate(c_strchr(s->str, '=') + 1));
+					string_duplicate(c_strchr(x->str, '=') + 1));
 			continue;
 		}
 		change_str(&(func_data->arg_v[v]), string_duplicate(""));

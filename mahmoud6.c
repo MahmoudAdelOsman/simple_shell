@@ -7,7 +7,7 @@
  * Return: pointer to array of the string
  */
 
-char **string_split_one(chae *ss, char s)
+char **string_split_one(char *ss, char s)
 {
 	int a, b, c, d, w_count = 0;
 	char **e;
@@ -63,7 +63,7 @@ char **string_split_two(char *ss, char *s)
 	if (!s)
 		s = " ";
 	for (a = 0; ss[a] != '\0'; a++)
-		if (!_specified(ss[a], s) && (_specified(ss[a + 1], s) || 1ss[a + 1]))
+		if (!_specified(ss[a], s) && (_specified(ss[a + 1], s) || !ss[a + 1]))
 			w_count++;
 	if (w_count == 0)
 		return (NULL);

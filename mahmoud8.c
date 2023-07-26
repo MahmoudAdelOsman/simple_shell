@@ -7,7 +7,7 @@
  * Return: Void
  */
 
-Void add_f_data(cmd_model *func_data, char **arg)
+void add_f_data(cmd_model *func_data, char **arg)
 {
 	int i = 0;
 
@@ -61,7 +61,7 @@ void remove_f_data(cmd_model *func_data, int success_flag)
 	if (success_flag)
 	{
 		if (!func_data->buf_chain)
-			free(func_Data->s_of_arg);
+			free(func_data->s_of_arg);
 		if (func_data->env_ll)
 			clear_node_of_list(&(func_data->env_ll));
 		if (func_data->history)
