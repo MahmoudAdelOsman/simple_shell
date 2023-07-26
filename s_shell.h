@@ -90,12 +90,12 @@ typedef struct models_pool
 } cmd_model;
 
 /**
- * struct func_call - contains a function string and related function
+ * struct function_call - contains a function string and related function
  * @flag_name: the builtin command flag
  * @func_name: the function
  */
 
-typedef struct func_call
+typedef struct function_call
 {
 	char *flag_name;
 	int (*func_name)(cmd_model *);
