@@ -1,83 +1,96 @@
 #include "s_shell.h"
 
 /**
- * exe_checker - checks executable command
+ * c_cd - changes the current directory
  * @func_data: structure containing a data model
- * @dir: file direction
- * Return: 1 on Success
+ * Return: 0 Always
  */
 
-int exe_checker(cmd_model *func_data, char *dir)
+int c_cd(cmd_model *func_data)
 {
-	struct stat st;
+	char *m, *dir;
+	char buf[1024];
+	int chdir_return;
 
-	(void) func_data;
-	if (!dir || stat(dir, &st))
-		return (0);
-	if (st.st_mode & S_IFREG)
-		return (1);
+	m = getcwd(buf, 1024);
+	if (!m)
+		_puts("TODO: >>getcwd failure emsg here<<\n");
+	if (!func_data->arg_v[1])
+	{
+		dir = get_value(func_data, "HOME=");
+		if (!dir)
+			chdir_return = chdir((dir = get_value(func_data, "PWD=")) ? dir : "/");
+		else
+			chdir_return = chdir(dir);
+	}
+	else if (str_compare(func_data->arg_v[1], "-") == 0)
+	{
+		if (!get_value(func_data, "OLDPWD="))
+		{
+			_puts(m);
+			_putchar('\n');
+			return (1);
+		}
+		_puts(get_value(func_data, "OLDPWD=")), _putchar('\n');
+		chdir_return = chdir((dir = get_value(func_data, "OLDPWD=")) ? dir : "/");
+	}
+	else
+		chdir_return = chdir(func_data->arg_v[1]);
+	if (chdir_return == -1)
+	{
+		print_error(func_data, "can't cd to ");
+		print_error_string(func_data->arg_v[1]);
+		putchar_error('\n');
+	}
+	else
+	{
+		add_new_env(func_data, "OLDPWD", get_value(func_data, "PWD="));
+		add_new_env(func_data, "PWD", getcwd(buf, 1024));
+	}
 	return (0);
 }
 
 /**
- * duplicate_char - duplicates characters
- * @dir_s: string needed input
- * @start: start index
- * @stop: stop index
- * Return: pointer to string
+ * c_exit - exits simple shell
+ * @func_data: structure containing a data model
+ * Return: 0 on Success
  */
 
-char *duplicate_char(char *dir_s, int start, int stop)
+int c_exit(cmd_model *func_data)
 {
-	static char output[1024];
-	int z = 0, x = 0;
+	int checker;
 
-	for (x = 0, z = start; z < stop; z++)
-		if (dir_s[z] != ':')
-			output[x++] = dir_s[z];
-	output[x] = 0;
-	return (output);
+	if (func_data->arg_v[1])
+	{
+		checker = error_conv(func_data->arg_v[1]);
+		if (checker == -1)
+		{
+			func_data->fb = 2;
+			print_error(func_data, "Illegal number: ");
+			print_error_string(func_data->arg_v[1]);
+			putchar_error('\n');
+			return (1);
+		}
+		func_data->code_error = error_conv(func_data->arg_v[1]);
+		return (-2);
+	}
+	func_data->code_error = -1;
+	return (-2);
 }
 
 /**
- * search_in_dir - find command in a specified direction
+ * c_help - executes a help command
  * @func_data: structure containing a data model
- * @dir_s: string needed input
- * @ss: specified command
- * Return: direction string
+ * Return: 0 Always
  */
 
-char *search_in_dir(cmd_model *func_data, char *dir_s, char *ss)
+int c_help(cmd_model *func_data)
 {
-	int r = 0, a = 0;
-	char *dir;
+	char **rg;
 
-	if (!dir_s)
-		return (NULL);
-	if ((str_length(ss) > 2) && haystack_check(ss, "./"))
-	{
-		if (exe_checker(func_data, ss))
-			return (ss);
-	}
-	while (1)
-	{
-		if (!dir_s[r] || dir_s[r] == ':')
-		{
-			dir = duplicate_char(dir_s, a, r);
-			if (!*dir)
-				string_cat(dir, ss);
-			else
-			{
-				string_cat(dir, "/");
-				string_cat(dir, ss);
-			}
-			if (exe_checker(func_data, dir))
-				return (dir);
-			if (!dir_s[r])
-				break;
-			a = r;
-		}
-		r++;
-	}
-	return (NULL);
+	rg = func_data->arg_v;
+	_puts("help call works. Function not yet implemented\n");
+	if (0)
+		_puts(*rg);
+	return (0);
 }
