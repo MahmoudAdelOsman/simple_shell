@@ -55,7 +55,7 @@ void create_func_data(cmd_model *func_data)
 
 void remove_f_data(cmd_model *func_data, int success_flag)
 {
-	str_free(!func_data->arg_v);
+	str_free(func_data->arg_v);
 	func_data->arg_v = NULL;
 	func_data->path = NULL;
 	if (success_flag)
