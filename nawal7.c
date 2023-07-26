@@ -65,7 +65,8 @@ int call_com(cmd_model *func_data)
 	};
 
 	for (x = 0; com_table[x]. flag_name; x++)
-		if (str_compare(func_data->arg_v[0], com_table[x].flag_name) == 0)
+		if (str_compare(func_data->arg_v[0],
+					com_table[x].flag_name) == 0)
 		{
 			func_data->row_error_count++;
 			output = com_table[x].func_name(func_data);
@@ -135,7 +136,8 @@ void f_run_command(cmd_model *func_data)
 	}
 	if (child == 0)
 	{
-		if (execve(func_data->path, func_data->arg_v, get_str_environ(func_data)) == -1)
+		if (execve(func_data->path, func_data->arg_v,
+					get_str_environ(func_data)) == -1)
 		{
 			remove_f_data(func_data, 1);
 			if (errno == EACCES)
