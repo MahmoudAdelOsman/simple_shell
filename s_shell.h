@@ -29,7 +29,7 @@
 #define AND_MODE_COM 2
 #define END_MODE_COM 3
 
-extern char **c_environ;
+extern char **environ;
 
 /**
  *  struct singly_LL - singly linked list

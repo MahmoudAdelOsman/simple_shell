@@ -60,8 +60,8 @@ int ll_env(cmd_model *func_data)
 	l_list *x = NULL;
 	size_t v;
 
-	for (v = 0; c_environ[v]; v++)
-		add_node_at_end(&x, c_environ[v], 0);
+	for (v = 0; environ[v]; v++)
+		add_node_at_end(&x, environ[v], 0);
 	func_data->env_ll = x;
 	return (0);
 }

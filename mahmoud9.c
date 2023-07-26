@@ -69,7 +69,7 @@ int add_new_env(cmd_model *func_data, char *ss, char *ss_value)
 	string_copy(x, ss);
 	string_cat(x, "=");
 	string_cat(x, ss_value);
-	x = func_data->env_ll;
+	x = func_data->env_ll->str;
 	while (y)
 	{
 		z = haystack_check(y->str, ss);
